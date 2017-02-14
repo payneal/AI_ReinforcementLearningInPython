@@ -31,7 +31,7 @@ else:
 * epsolpon = 10%, we'll contiue to spend 10% of the time doing suboptimal things
 *  a/b test could useful here where at some predetermined time if there is statistical significance, then set epsilon=0 if there is evidance or proof to do so
 
-# Estimating Bandit Rewards
+### Estimating Bandit Rewards
 * if we assume that are rewards are not just coin tosses, so we dont need to just store a number of successes and failurs
 * the general method of solving this problem is to use the mean
 * this works for coin tosses too 
@@ -42,3 +42,21 @@ else:
 * issue with the above equationis is that all x's would need to be stored to calculate the mean and thats not efficient
 * it would be better to calculated from old mean
 ![totalSumCalculatedFromOldMean](/../master/lesson1/calculateFromOldMean.png?raw=true "total sum divided number of samples")
+
+## second solution - Optimistic Initial values method
+* suppose we knew the mean of each bandit wasmuch less than 10
+* pick a high ceiling as the initial mean estimate
+![Optimistic Initial Values mean](/../master/lesson1/beforeNowOptimistic.png?raw=true "optimistic initial values new mean")
+* the initial sample meani is "oo good to be true"
+* all collected data will cause it to go down
+* if the true meanis 1, the sample mean will still approach1 as Icollect more samples
+* all means will eventually settle into their true values(exploitation)
+
+## third solution - UCB1
+* main idea behind UCB1 is confidence bounds
+* intuitively, we know that a sample mean from 10 samples is less accurate than a sample mean from 1000 samples
+* Chernoff-Hoeffding bound:
+![Chernoff-Hoeffding bound](/../master/lesson1/chernoff-HoeffdingBound.png?raw=true "chernoff-Hoeffding bound")
+* looks complicated, but leads to a simpler algo
+![simpler algo](/../master/lesson1/simplerAlgo.png?raw=true " simpler algo")
+* N = number of times ive played in total, N^j = numer of times ive played bandit j
